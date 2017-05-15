@@ -33,20 +33,20 @@ var geo = {
                 'filter': ["==", 'highlighted', true]
             });
 
-            geo.map.addLayer({
-                "id": name + "-greyed",
-                "type": "symbol",
-                "source": name,
-                "layout": {
-                    "icon-image": "circle-15",
-                    "icon-allow-overlap": true
-                },
-                "paint": {
-                    "icon-opacity": 0.5,
-                    "icon-color": 'red'
-                },
-                'filter': ["==", 'highlighted', false]
-            });
+            // geo.map.addLayer({
+            //     "id": name + "-greyed",
+            //     "type": "symbol",
+            //     "source": name,
+            //     "layout": {
+            //         "icon-image": "circle-15",
+            //         "icon-allow-overlap": true
+            //     },
+            //     "paint": {
+            //         "icon-opacity": 0.2,
+            //         "icon-color": 'red'
+            //     },
+            //     'filter': ["==", 'highlighted', false]
+            // });
         });
     },
     addEventListeners: function() {
