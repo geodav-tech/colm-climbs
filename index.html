@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -13,71 +13,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.4/dc.min.css" integrity="sha256-WHvgKNpdomdSPf4EGBla0Wx7QZpnZyKAOvuHQcuMHNs=" crossorigin="anonymous" />
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
     <link href="css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/keen-dashboards.css" />
+    <link rel="stylesheet" type="text/css" href="css/geo-explorer.css" />
 </head>
 
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">COLM Climbs</a>
+<body class="application">
+    <div id="app-wrapper">
+        <div id="app-maparea"></div>
+        <div id="app-sidebar">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Type
+                            <a class="reset hidden" href="javascript:typePieChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="type-pie-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Class
+                            <a class="reset hidden" href="javascript:classPieChart.filterAll();dc.redrawAll();">reset</a>
+                        </div>
+                        <div class="chart-stage">
+                            <div id="class-pie-chart"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <!-- <li>
-                        <a href="services.html">Services</a>
-                    </li> -->
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="full-width.html">Full Width Page</a>
-                            </li>
-                            <li>
-                                <a href="sidebar.html">Sidebar Page</a>
-                            </li>
-                            <li>
-                                <a href="faq.html">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="404.html">404</a>
-                            </li>
-                            <li>
-                                <a href="pricing.html">Pricing Table</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-8">
-                <div id="map" style="width: 100%;height: 400px;"></div>
-            </div>
-            <div class="col-sm-4 chart-container">
-                <div id="type-pie-chart"></div>
-                <div id="grade-bar-chart"></div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
+            <div class="chart-wrapper">
+                <div class="chart-title">
+                    Difficulty
+                    <a class="reset hidden" href="javascript:gradeBarChart.filterAll();dc.redrawAll();">reset</a>
+                </div>
+                <div class="chart-stage">
+                    <div id="grade-bar-chart"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -89,6 +64,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.4/dc.min.js"></script>
     <script src='js/geo.js'></script>
     <script src='js/charts.js'></script>
+    <script>
+    function adjust() {
+        document.getElementById("app-wrapper").style.height = window.innerHeight + "px";
+        document.getElementById("app-maparea").style.height = window.innerHeight + "px";
+    }
+    adjust();
+    window.onresize = adjust;
+    </script>
 </body>
 
 </html>

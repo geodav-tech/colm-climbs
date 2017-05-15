@@ -1,4 +1,5 @@
 var typePieChart = dc.pieChart("#type-pie-chart");
+var classPieChart = dc.pieChart("#class-pie-chart");
 var gradeBarChart = dc.barChart('#grade-bar-chart');
 
 
@@ -11,18 +12,23 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
     geo.initMap();
     geo.addLayer('climbs', data);
 
-    ndx = crossfilter(data.features);
+    var ndx = crossfilter(data.features);
 
     var typeDim = ndx.dimension(function(d) {
         return d.properties.Type;
     });
     var total_by_type = typeDim.group();
 
+    var classDim = ndx.dimension(function(d) {
+        return d.properties.ClimbClass;
+    });
+    var total_by_class = classDim.group();
+
     var filteredObjs = ndx.dimension(function(d) {
         return d;
     });
 
-    var gradeDim = ndx.dimension(function(d) {
+    var difficultyDim = ndx.dimension(function(d) {
         var diff = d.properties.Difficulty.split(' ')[0].replace('+', '').replace('-', '');
         if (diff == 'unknown') {
             return '?';
@@ -32,21 +38,24 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
             return diff;
         }
     });
-    var total_by_grade = gradeDim.group().reduceSum(function(d) {
-        return 1; // gets counts of climbs by difficulty...probably a better way to do this?
-    });
+    var total_by_difficulty = difficultyDim.group();
 
     typePieChart
         .width(150).height(150)
         .dimension(typeDim)
         .group(total_by_type);
 
+    classPieChart
+        .width(150).height(150)
+        .dimension(classDim)
+        .group(total_by_class);
+
     gradeBarChart
         .width(420)
         .height(180)
         .margins({ top: 10, right: 50, bottom: 30, left: 40 })
-        .dimension(gradeDim)
-        .group(total_by_grade)
+        .dimension(difficultyDim)
+        .group(total_by_difficulty)
         .elasticY(true)
         .gap(1)
         .alwaysUseRounding(true)

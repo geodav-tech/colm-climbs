@@ -1,14 +1,14 @@
 var geo = {
     map: null,
+    start_view: { lat: 39.05683297260771, lon: -108.69100755389508, zoom: 11.5 },
     initMap: function() {
         mapboxgl.accessToken = 'pk.eyJ1IjoibWdkNzIyIiwiYSI6ImNpbDRjaWRjODN5eHp1OWtzbWNtc2Zld3YifQ.vZlX9ZBALkMMYRyoEVNRUg';
-        var start_view = { lat: 39.05683297260771, lon: -108.69100755389508, zoom: 11.5 };
 
         geo.map = new mapboxgl.Map({
-            container: 'map',
+            container: 'app-maparea',
             style: 'mapbox://styles/mapbox/outdoors-v9',
-            center: [start_view.lon, start_view.lat],
-            zoom: start_view.zoom
+            center: [geo.start_view.lon, geo.start_view.lat],
+            zoom: geo.start_view.zoom
         });
 
         geo.map.addControl(new mapboxgl.NavigationControl());
@@ -84,6 +84,6 @@ var geo = {
         });
     },
     resetMap: function() {
-        map.easeTo({ "center": [start_view.lon, start_view.lat], "zoom": start_view.zoom });
+        geo.map.easeTo({ "center": [geo.start_view.lon, geo.start_view.lat], "zoom": geo.start_view.zoom });
     }
 };
