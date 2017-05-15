@@ -33,7 +33,7 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         }
     });
     var total_by_grade = gradeDim.group().reduceSum(function(d) {
-        return 1;
+        return 1; // gets counts of climbs by difficulty...probably a better way to do this?
     });
 
     typePieChart
@@ -48,15 +48,10 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .dimension(gradeDim)
         .group(total_by_grade)
         .elasticY(true)
-        // (_optional_) whether bar should be center to its x value. Not needed for ordinal chart, `default=false`
-        // .centerBar(true)
-        // (_optional_) set gap between bars manually in px, `default=2`
         .gap(1)
-        // (_optional_) set filter brush rounding
         .alwaysUseRounding(true)
         .x(d3.scale.ordinal().domain(['<= 5.6', '5.7', '5.8', '5.9', '5.10', '5.11', '5.12', '5.13', '?']))
         .xUnits(dc.units.ordinal)
-        // .brushOn(false)
         .renderHorizontalGridLines(true);
 
     // attach event listener to each chart to show/hide filter elsewhere in the DOM
