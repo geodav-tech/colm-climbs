@@ -14,3 +14,13 @@ body {
 .map-info-box tr:nth-child(even) {
     background: #f5f5f5;
 }
+
+.chart-container>.dc-chart {
+    text-align: center;
+    float: none;
+}
+
+
+/*color pallate
+
+https://coolors.co/2f4858-33658a-86bbd8-f6ae2d-f26419*/
