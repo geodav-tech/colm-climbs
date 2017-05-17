@@ -13,8 +13,12 @@ var geo = {
 
         geo.map.addControl(new mapboxgl.NavigationControl());
 
+        geo.map.loadImage('media/icons/red-marker.png', function(error, img) {
+            geo.map.addImage('red-marker', img);
+        });
     },
     addLayer: function(name, geojsonPoints) {
+
         geo.map.on('load', function() {
             geo.map.addSource(name, {
                 "type": "geojson",
@@ -22,36 +26,22 @@ var geo = {
             });
 
             geo.map.addLayer({
-                "id": name + "-highlighted",
+                "id": "highlighted",
                 "type": "symbol",
                 "source": name,
                 "layout": {
-                    "icon-image": "circle-15",
+                    "icon-image": "red-marker",
                     "icon-allow-overlap": true,
-                    "icon-ignore-placement": true
+                    "icon-ignore-placement": true,
+                    "icon-size": 0.3
                 },
                 'filter': ["==", 'highlighted', true]
             });
-
-            // geo.map.addLayer({
-            //     "id": name + "-greyed",
-            //     "type": "symbol",
-            //     "source": name,
-            //     "layout": {
-            //         "icon-image": "circle-15",
-            //         "icon-allow-overlap": true
-            //     },
-            //     "paint": {
-            //         "icon-opacity": 0.2,
-            //         "icon-color": 'red'
-            //     },
-            //     'filter': ["==", 'highlighted', false]
-            // });
         });
     },
     addEventListeners: function() {
-        map.on('click', function(e) {
-            var features = map.queryRenderedFeatures(e.point, { layers: ['unclustered-points'] });
+        geo.map.on('click', function(e) {
+            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['highlighted'] });
 
             if (!features.length) {
                 return;
@@ -73,14 +63,14 @@ var geo = {
             var popup = new mapboxgl.Popup()
                 .setLngLat(feature.geometry.coordinates)
                 .setHTML(html)
-                .addTo(map);
+                .addTo(geo.map);
         });
 
         // Use the same approach as above to indicate that the symbols are clickable
         // by changing the cursor style to 'pointer'.
-        map.on('mousemove', function(e) {
-            var features = map.queryRenderedFeatures(e.point, { layers: ['unclustered-points', ] });
-            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+        geo.map.on('mousemove', function(e) {
+            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['highlighted', ] });
+            geo.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
         });
     },
     resetMap: function() {
