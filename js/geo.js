@@ -1,6 +1,6 @@
 var geo = {
     map: null,
-    start_view: { lat: 39.05683297260771, lon: -108.69100755389508, zoom: 11.5 },
+    start_view: { lon: -108.7036313776697, lat: 39.04929205588982, zoom: 11.5 },
     initMap: function() {
         mapboxgl.accessToken = 'pk.eyJ1IjoibWdkNzIyIiwiYSI6ImNpbDRjaWRjODN5eHp1OWtzbWNtc2Zld3YifQ.vZlX9ZBALkMMYRyoEVNRUg';
 
@@ -17,26 +17,68 @@ var geo = {
             geo.map.addImage('red-marker', img);
         });
     },
-    addLayer: function(name, geojsonPoints) {
+    addLayer: function(geojsonPoints) {
 
         geo.map.on('load', function() {
-            geo.map.addSource(name, {
+            geo.map.addSource('climbs', {
                 "type": "geojson",
-                "data": geojsonPoints
+                "data": geojsonPoints,
+                "cluster": true,
+                "clusterMaxZoom": 14, // Max zoom to cluster points on
+                "clusterRadius": 50 // Radius of each cluster when clustering points (defaults to 50)
             });
 
             geo.map.addLayer({
-                "id": "highlighted",
+                "id": "unclustered-climbs",
                 "type": "symbol",
-                "source": name,
+                "source": 'climbs',
+                "filter": ["!has", "point_count"],
                 "layout": {
                     "icon-image": "red-marker",
                     "icon-allow-overlap": true,
                     "icon-ignore-placement": true,
                     "icon-size": 0.3
-                },
-                'filter': ["==", 'highlighted', true]
+                }
             });
+
+            // Display the data in three layers, each filtered to a range of
+            // count values. Each range gets a different fill color.
+            var layers = [
+                [25, '#F26419'],
+                [10, '#F6AE2D'],
+                [0, '#86BBD8']
+            ];
+
+            layers.forEach(function(layer, i) {
+                geo.map.addLayer({
+                    "id": "cluster-" + i,
+                    "type": "circle",
+                    "source": "climbs",
+                    "paint": {
+                        "circle-color": layer[1],
+                        "circle-radius": 18
+                    },
+                    "filter": i === 0 ? [">=", "point_count", layer[0]] : ["all", [">=", "point_count", layer[0]],
+                        ["<", "point_count", layers[i - 1][0]]
+                    ]
+                });
+            });
+
+            // Add a layer for the clusters' count labels
+            geo.map.addLayer({
+                "id": "cluster-count",
+                "type": "symbol",
+                "source": "climbs",
+                "layout": {
+                    "text-field": "{point_count}",
+                    "text-font": [
+                        "DIN Offc Pro Medium",
+                        "Arial Unicode MS Bold"
+                    ],
+                    "text-size": 12
+                }
+            });
+
         });
     },
     addEventListeners: function() {

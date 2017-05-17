@@ -5,12 +5,8 @@ var gradeBarChart = dc.barChart('#grade-bar-chart');
 
 $.getJSON('data/colm-climbs-v3.geojson', function(data) {
 
-    data.features.forEach(function(d) {
-        d.properties.highlighted = true;
-    });
-
     geo.initMap();
-    geo.addLayer('climbs', data);
+    geo.addLayer(data);
 
     var ndx = crossfilter(data.features);
 
@@ -72,13 +68,12 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
                 $(chart.anchor()).closest('.chart-wrapper').find('.reset').addClass('hidden');
             }
 
-            data.features.forEach(function(d) {
-                d.properties.highlighted = false;
+            // update the data displayed by all layers in the map to only include the data we've filtered to
+            geo.map.getSource('climbs').setData({
+                "type": "FeatureCollection",
+                "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                "features": filteredObjs.top(Infinity)
             });
-            filteredObjs.top(Infinity).forEach(function(d) {
-                d.properties.highlighted = true;
-            });
-            geo.map.getSource('climbs').setData(data);
 
         });
     });
