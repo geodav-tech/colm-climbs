@@ -37,7 +37,7 @@ var geo = {
                     "icon-image": "red-marker",
                     "icon-allow-overlap": true,
                     "icon-ignore-placement": true,
-                    "icon-size": 0.3
+                    "icon-size": 0.2
                 }
             });
 
@@ -83,7 +83,7 @@ var geo = {
     },
     addEventListeners: function() {
         geo.map.on('click', function(e) {
-            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['highlighted'] });
+            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['unclustered-climbs'] });
 
             if (!features.length) {
                 return;
@@ -111,7 +111,7 @@ var geo = {
         // Use the same approach as above to indicate that the symbols are clickable
         // by changing the cursor style to 'pointer'.
         geo.map.on('mousemove', function(e) {
-            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['highlighted', ] });
+            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['unclustered-climbs'] });
             geo.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
         });
     },

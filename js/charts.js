@@ -7,6 +7,7 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
 
     geo.initMap();
     geo.addLayer(data);
+    geo.map.on('load', geo.addEventListeners);
 
     var ndx = crossfilter(data.features);
 
