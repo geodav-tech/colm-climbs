@@ -1,6 +1,35 @@
 body.application {
+    background: #f2f2f2;
+    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding: 0;
     margin: 0;
+}
+
+body.application > .container-fluid {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.chart-wrapper {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.chart-wrapper .chart-title {
+    border-bottom: 1px solid #d7d7d7;
+    color: #666;
+    font-size: 14px;
+    font-weight: 200;
+    padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-stage {
+    overflow: hidden;
+    padding: 5px 10px;
+    position: relative;
 }
 
 .row {
@@ -48,6 +77,19 @@ body.application {
     background: #f5f5f5;
 }
 
+.mapboxgl-popup-content {
+    max-width: 250px;
+    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.mapboxgl-popup-content tr:last-child td:last-child {
+    line-height: normal;
+}
+
+.mapboxgl-popup-content h5 {
+    font-size: 24px;
+}
+
 .chart-stage>.dc-chart {
     float: none;
     text-align: center;
@@ -67,19 +109,6 @@ body.application {
     font-weight: 500;
 }
 
-.mapboxgl-popup-content {
-    max-width: 250px;
-    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.mapboxgl-popup-content tr:last-child td:last-child {
-    line-height: normal;
-}
-
-.mapboxgl-popup-content h5 {
-    font-size: 24px;
-}
-
 
 /*row chart labels as black text*/
 
@@ -90,4 +119,9 @@ body.application {
 .sidebar-content {
     flex: 1 1 auto;
     overflow-y: scroll;
+}
+
+.sidebar-content div[class^="col-"] {
+    padding-left: 5px;
+    padding-right: 5px;
 }
