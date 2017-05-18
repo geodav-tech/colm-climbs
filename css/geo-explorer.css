@@ -25,8 +25,8 @@ body.application {
     padding: 10px;
     position: absolute;
     right: 0;
-    top: 75px;
     width: 33%;
+    height: 100%;
 }
 
 #app-sidebar .chart-wrapper {
@@ -49,4 +49,26 @@ body.application {
 
 .reset {
     float: right;
+}
+
+.sidebar-charts {
+    overflow-y: scroll;
+    height: 85%;
+}
+
+.sidebar-header-bar {
+    margin-bottom: 10px;
+}
+
+.sidebar-header-title {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.mapboxgl-popup-content {
+    max-width: 250px;
+}
+
+.mapboxgl-popup-content tr:last-child td:last-child {
+    line-height: normal;
 }

@@ -20,37 +20,42 @@
     <div id="app-wrapper">
         <div id="app-maparea"></div>
         <div id="app-sidebar">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="chart-wrapper">
-                        <div class="chart-title">
-                            Type
-                            <a class="reset hidden" href="javascript:typePieChart.filterAll();dc.redrawAll();">reset</a>
-                        </div>
-                        <div class="chart-stage">
-                            <div id="type-pie-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="chart-wrapper">
-                        <div class="chart-title">
-                            Class
-                            <a class="reset hidden" href="javascript:classPieChart.filterAll();dc.redrawAll();">reset</a>
-                        </div>
-                        <div class="chart-stage">
-                            <div id="class-pie-chart"></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="sidebar-header-bar">
+                <div class="sidebar-header-title">COLM Climbs</div>
             </div>
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    Difficulty
-                    <a class="reset hidden" href="javascript:gradeBarChart.filterAll();dc.redrawAll();">reset</a>
+            <div class="sidebar-charts">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="chart-wrapper">
+                            <div class="chart-title">
+                                Type
+                                <a class="reset hidden" href="javascript:typePieChart.filterAll();dc.redrawAll();">reset</a>
+                            </div>
+                            <div class="chart-stage">
+                                <div id="type-pie-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="chart-wrapper">
+                            <div class="chart-title">
+                                Class
+                                <a class="reset hidden" href="javascript:classPieChart.filterAll();dc.redrawAll();">reset</a>
+                            </div>
+                            <div class="chart-stage">
+                                <div id="class-pie-chart"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="chart-stage">
-                    <div id="grade-bar-chart"></div>
+                <div class="chart-wrapper">
+                    <div class="chart-title">
+                        Difficulty
+                        <a class="reset hidden" href="javascript:gradeBarChart.filterAll();dc.redrawAll();">reset</a>
+                    </div>
+                    <div class="chart-stage">
+                        <div id="grade-bar-chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
