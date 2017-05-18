@@ -34,11 +34,15 @@ body.application {
     box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
 }
 
-.map-info-box tr td {
+.mapboxgl-popup-content table {
+    width: 100%;
+}
+
+.mapboxgl-popup-content table tr td {
     padding-right: 10px;
 }
 
-.map-info-box tr:nth-child(even) {
+.mapboxgl-popup-content table tr:nth-child(even) {
     background: #f5f5f5;
 }
 
@@ -67,8 +71,13 @@ body.application {
 
 .mapboxgl-popup-content {
     max-width: 250px;
+    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .mapboxgl-popup-content tr:last-child td:last-child {
     line-height: normal;
+}
+
+.mapboxgl-popup-content h5 {
+    font-size: 24px;
 }

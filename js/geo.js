@@ -90,7 +90,7 @@ var geo = {
             }
 
             var feature = features[0];
-            var html = '<h5>' + feature.properties.Name + '</h5><table class="map-info-box">';
+            var html = '<h5>' + feature.properties.Name + '</h5><table>';
             html += '<tr><td>Difficulty</td><td>' + feature.properties.Difficulty + '</td></tr>';
             html += '<tr><td>Pitches</td><td>' + feature.properties.Pitches + '</td></tr>';
             html += '<tr><td>Type</td><td>' + feature.properties.Type + '</td></tr>';
