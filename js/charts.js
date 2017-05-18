@@ -1,6 +1,7 @@
 var typePieChart = dc.pieChart("#type-pie-chart");
 var classPieChart = dc.pieChart("#class-pie-chart");
 var gradeBarChart = dc.barChart('#grade-bar-chart');
+var pitchesRowChart = dc.rowChart('#pitches-row-chart');
 
 
 $.getJSON('data/colm-climbs-v3.geojson', function(data) {
@@ -37,6 +38,11 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
     });
     var total_by_difficulty = difficultyDim.group();
 
+    var pitchesDim = ndx.dimension(function(d) {
+        return d.properties.Pitches;
+    });
+    var total_by_pitches = pitchesDim.group();
+
     typePieChart
         .width(150).height(150)
         .dimension(typeDim)
@@ -48,9 +54,9 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .group(total_by_class);
 
     gradeBarChart
-        .width(420)
+        .width($(gradeBarChart.anchor()).parent().width())
         .height(180)
-        .margins({ top: 10, right: 50, bottom: 30, left: 40 })
+        .margins({ top: 10, left: 25, right: 10, bottom: 20 })
         .dimension(difficultyDim)
         .group(total_by_difficulty)
         .elasticY(true)
@@ -59,6 +65,21 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .x(d3.scale.ordinal().domain(['<= 5.6', '5.7', '5.8', '5.9', '5.10', '5.11', '5.12', '5.13', '?']))
         .xUnits(dc.units.ordinal)
         .renderHorizontalGridLines(true);
+
+    pitchesRowChart
+        .width($(pitchesRowChart.anchor()).parent().width())
+        .height(180)
+        .margins({ top: 10, left: 10, right: 10, bottom: 20 })
+        .group(total_by_pitches)
+        .dimension(pitchesDim)
+        .ordinalColors(['#1f77b4'])
+        .label(function(d) {
+            return d.key;
+        })
+        .title(function(d) {
+            return d.value;
+        })
+        .elasticX(true);
 
     // attach event listener to each chart to show/hide filter elsewhere in the DOM
     dc.chartRegistry.list().forEach(function(chart) {
