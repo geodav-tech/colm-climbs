@@ -22,11 +22,13 @@ body.application {
 }
 
 #app-sidebar {
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
     position: absolute;
     right: 0;
     width: 33%;
     height: 100%;
+    display: flex;
+    flex-flow: column;
 }
 
 #app-sidebar .chart-wrapper {
@@ -55,13 +57,9 @@ body.application {
     float: right;
 }
 
-.sidebar-charts {
-    overflow-y: scroll;
-    height: 85%;
-}
-
 .sidebar-header-bar {
     margin-bottom: 10px;
+    flex: 0 1 auto;
 }
 
 .sidebar-header-title {
@@ -80,4 +78,16 @@ body.application {
 
 .mapboxgl-popup-content h5 {
     font-size: 24px;
+}
+
+
+/*row chart labels as black text*/
+
+.dc-chart g.row text {
+    fill: black;
+}
+
+.sidebar-content {
+    flex: 1 1 auto;
+    overflow-y: scroll;
 }
