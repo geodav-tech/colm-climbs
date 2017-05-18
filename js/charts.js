@@ -44,12 +44,12 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
     var total_by_pitches = pitchesDim.group();
 
     typePieChart
-        .width(150).height(150)
+        .width($(typePieChart.anchor()).parent().width() - 7).height($(typePieChart.anchor()).parent().width() - 7)
         .dimension(typeDim)
         .group(total_by_type);
 
     classPieChart
-        .width(150).height(150)
+        .width($(classPieChart.anchor()).parent().width() - 7).height($(classPieChart.anchor()).parent().width() - 7)
         .dimension(classDim)
         .group(total_by_class);
 
