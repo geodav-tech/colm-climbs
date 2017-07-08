@@ -140,17 +140,26 @@ $(document).ready(function() {
     }
 });
 
+var oldWidth = $(window).width();
+var oldHeight = $(window).height();
+
 $(window).on('resize', function(event) {
     // resize app height in case of window reshape
-    $("#app-wrapper").css('height', window.innerHeight + "px");
-    $("#app-maparea").css('height', window.innerHeight + "px");
+    if ($(window).height() !== oldHeight) {
+        $("#app-wrapper").css('height', window.innerHeight + "px");
+        $("#app-maparea").css('height', window.innerHeight + "px");
+        oldHeight = $(window).height();
+    }
 
     // make charts responsive to changes in width
-    dc.chartRegistry.list().forEach(function(chart) {
-        chart.width($(chart.anchor()).parent().width() - 7).transitionDuration(0);
-        dc.renderAll();
-        chart.transitionDuration(750); // return the transition speed to default
-    });
+    if ($(window).width() !== oldWidth) {
+        dc.chartRegistry.list().forEach(function(chart) {
+            chart.width($(chart.anchor()).parent().width() - 7).transitionDuration(0);
+            dc.renderAll();
+            chart.transitionDuration(750); // return the transition speed to default
+        });
+        oldWidth = $(window).width();
+    }
 });
 
 // controls for the buttons to switch between map and charts
