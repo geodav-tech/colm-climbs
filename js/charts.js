@@ -4,6 +4,9 @@ var classPieChart = dc.pieChart("#class-pie-chart");
 var gradeBarChart = dc.barChart('#grade-bar-chart');
 var pitchesRowChart = dc.rowChart('#pitches-row-chart');
 
+// set initial height for app containers
+$("#app-wrapper").css('height', window.innerHeight + "px");
+$("#app-maparea").css('height', window.innerHeight + "px");
 
 $.getJSON('data/colm-climbs-v3.geojson', function(data) {
 
@@ -123,9 +126,19 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
     dc.renderAll();
 });
 
-// set initial height for app containers
-$("#app-wrapper").css('height', window.innerHeight + "px");
-$("#app-maparea").css('height', window.innerHeight + "px");
+$(document).ready(function() {
+    // turn on the popover and tooltip when ready
+    $('a[data-toggle="tooltip"]').tooltip();
+    if ($('.page-switch-icon').css('display') !== 'none') {
+        // only show this one if the icons are also showing
+        $('.page-switch-icon[data-toggle="tooltip"]').tooltip('show');
+
+        // remove introductory tooltip after first click anywhere
+        $(document).one("click", function() {
+            $('.page-switch-icon[data-toggle="tooltip"]').tooltip('destroy');
+        });
+    }
+});
 
 $(window).on('resize', function(event) {
     // resize app height in case of window reshape
