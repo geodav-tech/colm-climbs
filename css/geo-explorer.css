@@ -125,11 +125,11 @@ body.application > .container-fluid,
     height: 100%;
 }
 
-.climbCount {
+.climb-count {
     font-size: x-large;
 }
 
-.climbCountWords {
+.climb-count-words {
     vertical-align: text-bottom;
 }
 

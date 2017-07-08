@@ -51,9 +51,9 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .valueAccessor(function(d) {
             return d;
         }).html({
-            one: "<span class='climbCount'>%number</span><span class='climbCountWords'> climb matches the current filters</span>",
-            some: "<span class='climbCount'>%number</span><span class='climbCountWords'> climbs match the current filters</span>",
-            none: "<span class='climbCount'>%number</span><span class='climbCountWords'> climbs match the current filters</span>"
+            one: "<span class='climb-count'>%number</span><span class='climb-count-words'> climb matches the current filters</span>",
+            some: "<span class='climb-count'>%number</span><span class='climb-count-words'> climbs match the current filters</span>",
+            none: "<span class='climb-count'>%number</span><span class='climb-count-words'> climbs match the current filters</span>"
         })
         .group(totalClimbs);
 
