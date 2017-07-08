@@ -58,12 +58,12 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .group(totalClimbs);
 
     typePieChart
-        .width($(typePieChart.anchor()).parent().width() - 7).height($(typePieChart.anchor()).parent().width() - 7)
+        .width(managePieSize(typePieChart)).height(managePieSize(typePieChart))
         .dimension(typeDim)
         .group(total_by_type);
 
     classPieChart
-        .width($(classPieChart.anchor()).parent().width() - 7).height($(classPieChart.anchor()).parent().width() - 7)
+        .width(managePieSize(classPieChart)).height(managePieSize(classPieChart))
         .dimension(classDim)
         .group(total_by_class);
 
@@ -146,3 +146,13 @@ $('.page-switch-icon>i.fa').click(function() {
         scrollTop: $($(this).attr('data-scroll-to')).offset().top
     }, 500);
 });
+
+function managePieSize(pieChart) {
+    var anchorSize = $(pieChart.anchor()).parent().width();
+
+    if (anchorSize <= 187) {
+        return anchorSize - 7;
+    } else {
+        return 180;
+    }
+}
