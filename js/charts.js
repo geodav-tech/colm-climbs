@@ -1,3 +1,4 @@
+var countNumberDisplay = dc.numberDisplay('#count-number-display');
 var typePieChart = dc.pieChart("#type-pie-chart");
 var classPieChart = dc.pieChart("#class-pie-chart");
 var gradeBarChart = dc.barChart('#grade-bar-chart');
@@ -11,6 +12,8 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
     geo.map.on('load', geo.addEventListeners);
 
     var ndx = crossfilter(data.features);
+
+    var totalClimbs = ndx.groupAll();
 
     var typeDim = ndx.dimension(function(d) {
         return d.properties.Type;
@@ -42,6 +45,17 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         return d.properties.Pitches;
     });
     var total_by_pitches = pitchesDim.group();
+
+    countNumberDisplay
+        .formatNumber(d3.format(',.0f'))
+        .valueAccessor(function(d) {
+            return d;
+        }).html({
+            one: "<span class='climbCount'>%number</span><span class='climbCountWords'> climb matches the current filters</span>",
+            some: "<span class='climbCount'>%number</span><span class='climbCountWords'> climbs match the current filters</span>",
+            none: "<span class='climbCount'>%number</span><span class='climbCountWords'> climbs match the current filters</span>"
+        })
+        .group(totalClimbs);
 
     typePieChart
         .width($(typePieChart.anchor()).parent().width() - 7).height($(typePieChart.anchor()).parent().width() - 7)

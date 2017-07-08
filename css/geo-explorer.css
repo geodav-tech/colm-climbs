@@ -125,12 +125,20 @@ body.application > .container-fluid,
     height: 100%;
 }
 
-@media (max-width: 575px) {
+.climbCount {
+    font-size: x-large;
+}
+
+.climbCountWords {
+    vertical-align: text-bottom;
+}
+
+@media (max-width: 767px) {
     .sidebar-content {
         overflow-y: visible;
     }
     #app-maparea {
-        margin-right: 15px;
-        margin-left: 15px;
+        margin-right: 20px;
+        margin-left: 20px;
     }
 }
