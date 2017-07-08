@@ -152,6 +152,10 @@ body.application > .container-fluid,
     background-color: #f2f2f2;
 }
 
+.tooltip {
+    font-family: inherit;
+}
+
 .page-switch-icon>i.fa {
     font-size: 30px;
     line-height: 40px;
