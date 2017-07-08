@@ -8,9 +8,10 @@ var pitchesRowChart = dc.rowChart('#pitches-row-chart');
 $("#app-wrapper").css('height', window.innerHeight + "px");
 $("#app-maparea").css('height', window.innerHeight + "px");
 
+geo.initMap();
+
 $.getJSON('data/colm-climbs-v3.geojson', function(data) {
 
-    geo.initMap();
     geo.addLayer(data);
     geo.map.on('load', geo.addEventListeners);
 
