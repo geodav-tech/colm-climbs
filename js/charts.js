@@ -105,12 +105,16 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
             }
 
             // update the data displayed by all layers in the map to only include the data we've filtered to
-            geo.map.getSource('climbs').setData({
+            var selectedFeaturesGeojson = {
                 "type": "FeatureCollection",
                 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
                 "features": filteredObjs.top(Infinity)
-            });
+            };
+            geo.map.getSource('climbs').setData(selectedFeaturesGeojson);
 
+            // ease to the extent of the new features
+            var bbox = geo.addCosmeticPadding(turf.bbox(selectedFeaturesGeojson));
+            geo.map.fitBounds(bbox);
         });
     });
 

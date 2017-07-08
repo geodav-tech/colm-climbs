@@ -8,7 +8,8 @@ var geo = {
             container: 'app-maparea',
             style: 'mapbox://styles/mapbox/outdoors-v9',
             center: [geo.start_view.lon, geo.start_view.lat],
-            zoom: geo.start_view.zoom
+            zoom: geo.start_view.zoom,
+            maxZoom: 19
         });
 
         geo.map.addControl(new mapboxgl.NavigationControl());
@@ -18,6 +19,9 @@ var geo = {
         });
     },
     addLayer: function(geojsonPoints) {
+        // ease to new bounds (shouldn't be far from initial extent)
+        var bbox = geo.addCosmeticPadding(turf.bbox(geojsonPoints));
+        geo.map.fitBounds(bbox);
 
         geo.map.on('load', function() {
             geo.map.addSource('climbs', {
@@ -115,7 +119,13 @@ var geo = {
             geo.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
         });
     },
-    resetMap: function() {
-        geo.map.easeTo({ "center": [geo.start_view.lon, geo.start_view.lat], "zoom": geo.start_view.zoom });
+    addCosmeticPadding: function(bbox) {
+        // takes a geojson bbox and adds a slight percentage of padding to it so that all points draw wholly inbounds
+        bbox[0] *= 1.00005;
+        bbox[1] *= 0.99995;
+        bbox[2] *= 0.99995;
+        bbox[3] *= 1.00005;
+
+        return bbox;
     }
 };
