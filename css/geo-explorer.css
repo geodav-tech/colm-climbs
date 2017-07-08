@@ -118,6 +118,7 @@ body.application > .container-fluid,
 .sidebar-content {
     flex: 1 1 auto;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .sidebar-content div[class^="col-"] {
