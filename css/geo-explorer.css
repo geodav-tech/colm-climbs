@@ -104,6 +104,10 @@ body.application > .container-fluid,
     font-weight: 500;
 }
 
+.sidebar-header-subtitle {
+    font-size: x-small;
+}
+
 
 /*row chart labels as black text*/
 
@@ -133,12 +137,35 @@ body.application > .container-fluid,
     vertical-align: text-bottom;
 }
 
+.page-switch-icon {
+    margin: 10px 0 0 10px;
+    font-size: xx-large;
+    position: absolute;
+    z-index: 9;
+    display: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.page-switch-icon:hover {
+    background-color: #f2f2f2;
+}
+
+.page-switch-icon>i.fa {
+    font-size: 30px;
+    line-height: 40px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    position: absolute;
+}
+
 @media (max-width: 767px) {
-    .sidebar-content {
-        overflow-y: visible;
+    body {
+        overflow: hidden;
     }
-    #app-maparea {
-        margin-right: 20px;
-        margin-left: 20px;
+    .page-switch-icon {
+        display: block;
     }
 }

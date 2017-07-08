@@ -133,3 +133,10 @@ $(window).on('resize', function(event) {
         chart.transitionDuration(750); // return the transition speed to default
     });
 });
+
+// controls for the buttons to switch between map and charts
+$('.page-switch-icon>i.fa').click(function() {
+    $('html, body').animate({
+        scrollTop: $($(this).attr('data-scroll-to')).offset().top
+    }, 500);
+});
