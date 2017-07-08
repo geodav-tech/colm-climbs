@@ -174,3 +174,9 @@ body.application > .container-fluid,
         display: block;
     }
 }
+
+@media (min-width: 768px) {
+    .col-sm-8>.tooltip {
+        display: none !important;
+    }
+}
