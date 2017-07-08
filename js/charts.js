@@ -102,3 +102,10 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
 
     dc.renderAll();
 });
+
+$(window).on('resize', function(event) {
+    dc.chartRegistry.list().forEach(function(chart) {
+        chart.width($(chart.anchor()).parent().width() - 7).transitionDuration(0);
+        dc.renderAll();
+    });
+});
