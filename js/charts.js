@@ -117,7 +117,16 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
     dc.renderAll();
 });
 
+// set initial height for app containers
+$("#app-wrapper").css('height', window.innerHeight + "px");
+$("#app-maparea").css('height', window.innerHeight + "px");
+
 $(window).on('resize', function(event) {
+    // resize app height in case of window reshape
+    $("#app-wrapper").css('height', window.innerHeight + "px");
+    $("#app-maparea").css('height', window.innerHeight + "px");
+
+    // make charts responsive to changes in width
     dc.chartRegistry.list().forEach(function(chart) {
         chart.width($(chart.anchor()).parent().width() - 7).transitionDuration(0);
         dc.renderAll();
