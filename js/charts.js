@@ -178,3 +178,22 @@ function managePieSize(pieChart) {
         return 180;
     }
 }
+
+$(document).bind(
+    'touchmove',
+    function(evt) {
+        if ($(evt.target).closest('.sidebar-content').length == 0) {
+            evt.preventDefault();
+        }
+    }
+);
+
+$('.sidebar-content').on('touchstart', function() {
+    var el = $(this);
+    if (el.scrollTop() <= 0) {
+        el.scrollTop(1);
+    }
+    if (el.scrollTop() >= el[0].scrollHeight) {
+        el.scrollTop(el[0].scrollHeight - 1);
+    }
+});
