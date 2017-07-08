@@ -107,5 +107,6 @@ $(window).on('resize', function(event) {
     dc.chartRegistry.list().forEach(function(chart) {
         chart.width($(chart.anchor()).parent().width() - 7).transitionDuration(0);
         dc.renderAll();
+        chart.transitionDuration(750); // return the transition speed to default
     });
 });
