@@ -78,7 +78,8 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .alwaysUseRounding(true)
         .x(d3.scale.ordinal().domain(['<= 5.6', '5.7', '5.8', '5.9', '5.10', '5.11', '5.12', '5.13', '?']))
         .xUnits(dc.units.ordinal)
-        .renderHorizontalGridLines(true);
+        .renderHorizontalGridLines(true)
+        .yAxis().tickFormat(d3.format('d'));
 
     pitchesRowChart
         .width($(pitchesRowChart.anchor()).parent().width())
@@ -93,7 +94,8 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
         .title(function(d) {
             return d.value;
         })
-        .elasticX(true);
+        .elasticX(true)
+        .xAxis().tickFormat(d3.format('d'));
 
     // attach event listener to each chart to show/hide filter elsewhere in the DOM
     dc.chartRegistry.list().forEach(function(chart) {
