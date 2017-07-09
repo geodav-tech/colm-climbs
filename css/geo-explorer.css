@@ -1,6 +1,11 @@
+@font-face {
+    font-family: Gotham;
+    src: url("GothamMedium.otf") format("opentype");
+}
+
 body.application {
     background: #f2f2f2;
-    font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Gotham', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding: 0;
     margin: 0;
 }
@@ -193,7 +198,7 @@ body.application > .container-fluid,
 
 .fa-list {
     font-size: large;
-    padding-top: 9px;
+    padding-top: 8px;
 }
 
 @media (max-width: 767px) {
