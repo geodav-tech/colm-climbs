@@ -24,13 +24,13 @@
     <div id="app-wrapper" class="container-fluid">
         <div class="col-sm-8">
             <div class="page-switch-icon mapboxgl-ctrl-group" data-toggle="tooltip" data-placement="right" data-trigger="manual" title="Use the charts to filter climbs">
-                <i class="fa fa-pie-chart" data-scroll-to="#app-sidebar" aria-hidden="true"></i>
+                <i class="fa fa-pie-chart" data-scroll-to="#app-sidebar"></i>
             </div>
             <div id="app-maparea"></div>
         </div>
         <div class="col-sm-4 sidebar-container">
             <div class="page-switch-icon mapboxgl-ctrl-group">
-                <i class="fa fa-map" data-scroll-to="#app-maparea" aria-hidden="true"></i>
+                <i class="fa fa-map" data-scroll-to="#app-maparea"></i>
             </div>
             <div id="app-sidebar">
                 <div class="sidebar-header-bar text-center">
@@ -43,7 +43,9 @@
                         <div class="col-xs-12">
                             <div class="chart-wrapper">
                                 <div class="chart-stage">
-                                    <div id="count-number-display" data-toggle="collapse" data-target="#climbs-table-container"></div>
+                                    <div id="count-number-display" data-toggle="collapse" data-target="#climbs-table-container">
+                                        <i class="fa fa-list pull-left"></i>
+                                    </div>
                                     <div id="climbs-table-container" class="collapse">
                                         <table id="climbs-table">
                                         </table>

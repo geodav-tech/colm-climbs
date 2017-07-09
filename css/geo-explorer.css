@@ -191,6 +191,11 @@ body.application > .container-fluid,
     cursor: pointer;
 }
 
+.fa-list {
+    font-size: large;
+    padding-top: 9px;
+}
+
 @media (max-width: 767px) {
     body {
         overflow: hidden;
