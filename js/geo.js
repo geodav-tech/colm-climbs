@@ -135,6 +135,13 @@ var geo = {
         return bbox;
     },
     zoomSingleClimb: function(lat, lon, id) {
+        // if on mobile, scroll up to map before zooming
+        if ($('.page-switch-icon').css('display') !== 'none') {
+            $('html, body').animate({
+                scrollTop: $('#app-maparea').offset().top
+            }, 500);
+        }
+
         geo.clearPopup();
         geo.map.easeTo({ center: [lon, lat], zoom: 15.5 });
         geo.map.once('moveend', function() {
