@@ -165,6 +165,7 @@ $(window).on('resize', function(event) {
     if ($(window).height() !== oldHeight) {
         $("#app-wrapper").css('height', window.innerHeight + "px");
         $("#app-maparea").css('height', window.innerHeight + "px");
+        geo.map.resize();
         oldHeight = $(window).height();
     }
 
