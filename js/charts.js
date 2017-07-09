@@ -121,10 +121,17 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
             // ease to the extent of the new features
             var bbox = geo.addCosmeticPadding(turf.bbox(selectedFeaturesGeojson));
             geo.map.fitBounds(bbox);
+
+            //update list of climbs
+            $('#climbs-table').empty();
+            $('#climbs-table').html(geojsonToTable(selectedFeaturesGeojson));
         });
     });
 
     dc.renderAll();
+
+    // populate climbs table first time
+    $('#climbs-table').html(geojsonToTable(data));
 });
 
 $(document).ready(function() {
@@ -178,6 +185,25 @@ function managePieSize(pieChart) {
     } else {
         return 180;
     }
+}
+
+function geojsonToTable(geojson) {
+    // sort data alphabetically by route name
+    geojson.features.sort(function(a, b) {
+        var nameA = a.properties.Name.toLowerCase(),
+            nameB = b.properties.Name.toLowerCase();
+        if (nameA < nameB) //sort string ascending
+            return -1;
+        if (nameA > nameB)
+            return 1;
+        return 0; //default return value (no sorting)
+    });
+
+    var tableHtmlString = '';
+    geojson.features.forEach(function(feature) {
+        tableHtmlString += '<tr><td>' + feature.properties.Name + '</td><td>' + feature.properties.Difficulty + '</td></tr>';
+    });
+    return tableHtmlString;
 }
 
 $(document).bind(

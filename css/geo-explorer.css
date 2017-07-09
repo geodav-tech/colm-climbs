@@ -166,6 +166,11 @@ body.application > .container-fluid,
     position: absolute;
 }
 
+#climbs-table-container {
+    max-height: 200px;
+    overflow: scroll;
+}
+
 @media (max-width: 767px) {
     body {
         overflow: hidden;
