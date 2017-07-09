@@ -1,6 +1,7 @@
 var geo = {
     map: null,
     start_view: { lon: -108.7036313776697, lat: 39.04929205588982, zoom: 11.5 },
+    popup: null,
     initMap: function() {
         mapboxgl.accessToken = 'pk.eyJ1IjoibWdkNzIyIiwiYSI6ImNpbDRjaWRjODN5eHp1OWtzbWNtc2Zld3YifQ.vZlX9ZBALkMMYRyoEVNRUg';
 
@@ -85,31 +86,36 @@ var geo = {
 
         });
     },
+    _makePopup: function(screenPoint, features) {
+        if (screenPoint) {
+            features = geo.map.queryRenderedFeatures(screenPoint, { layers: ['unclustered-climbs'] });
+        }
+
+        if (!features.length) {
+            return;
+        }
+
+        var feature = features[0];
+        var html = '<h5>' + feature.properties.Name + '</h5><table>';
+        html += '<tr><td>Difficulty</td><td>' + feature.properties.Difficulty + '</td></tr>';
+        html += '<tr><td>Pitches</td><td>' + feature.properties.Pitches + '</td></tr>';
+        html += '<tr><td>Type</td><td>' + feature.properties.Type + '</td></tr>';
+        html += '<tr><td>Anchors</td><td>' + feature.properties.Anchors + '</td></tr>';
+        html += '<tr><td>Fixed_Gear</td><td>' + feature.properties.Fixed_Gear + '</td></tr>';
+        html += '<tr><td>Descent</td><td>' + feature.properties.Descent + '</td></tr>';
+        html += '<tr><td>Height</td><td>' + feature.properties.Height_Ft + ' feet</tr>';
+        html += '<tr><td>Trail</td><td>' + feature.properties.Trail + '</td></tr>';
+        html += '<tr><td>Comments</td><td>' + feature.properties.Comments + '</td></tr>';
+        html += '</table>';
+
+        geo.popup = new mapboxgl.Popup()
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML(html)
+            .addTo(geo.map);
+    },
     addEventListeners: function() {
         geo.map.on('click', function(e) {
-            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['unclustered-climbs'] });
-
-            if (!features.length) {
-                return;
-            }
-
-            var feature = features[0];
-            var html = '<h5>' + feature.properties.Name + '</h5><table>';
-            html += '<tr><td>Difficulty</td><td>' + feature.properties.Difficulty + '</td></tr>';
-            html += '<tr><td>Pitches</td><td>' + feature.properties.Pitches + '</td></tr>';
-            html += '<tr><td>Type</td><td>' + feature.properties.Type + '</td></tr>';
-            html += '<tr><td>Anchors</td><td>' + feature.properties.Anchors + '</td></tr>';
-            html += '<tr><td>Fixed_Gear</td><td>' + feature.properties.Fixed_Gear + '</td></tr>';
-            html += '<tr><td>Descent</td><td>' + feature.properties.Descent + '</td></tr>';
-            html += '<tr><td>Height</td><td>' + feature.properties.Height_Ft + ' feet</tr>';
-            html += '<tr><td>Trail</td><td>' + feature.properties.Trail + '</td></tr>';
-            html += '<tr><td>Comments</td><td>' + feature.properties.Comments + '</td></tr>';
-            html += '</table>';
-
-            var popup = new mapboxgl.Popup()
-                .setLngLat(feature.geometry.coordinates)
-                .setHTML(html)
-                .addTo(geo.map);
+            geo._makePopup(e.point);
         });
 
         // Use the same approach as above to indicate that the symbols are clickable
@@ -127,5 +133,14 @@ var geo = {
         bbox[3] *= 1.00005;
 
         return bbox;
+    },
+    zoomSingleClimb: function(lat, lon, id) {
+        if (geo.popup) {
+            geo.popup.remove();
+        }
+        geo.map.easeTo({ center: [lon, lat], zoom: 15.5 });
+        geo.map.once('moveend', function() {
+            geo._makePopup(null, geo.map.querySourceFeatures('climbs', { filter: ["==", 'ID', id] }));
+        });
     }
 };

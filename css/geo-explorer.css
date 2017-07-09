@@ -171,6 +171,11 @@ body.application > .container-fluid,
     overflow: scroll;
 }
 
+#climbs-table>tr,
+#count-number-display {
+    cursor: pointer;
+}
+
 @media (max-width: 767px) {
     body {
         overflow: hidden;
