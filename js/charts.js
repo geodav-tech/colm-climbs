@@ -110,6 +110,8 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
                 $(chart.anchor()).closest('.chart-wrapper').find('.reset').addClass('hidden');
             }
 
+            geo.clearPopup();
+
             // update the data displayed by all layers in the map to only include the data we've filtered to
             var selectedFeaturesGeojson = {
                 "type": "FeatureCollection",
@@ -118,9 +120,16 @@ $.getJSON('data/colm-climbs-v3.geojson', function(data) {
             };
             geo.map.getSource('climbs').setData(selectedFeaturesGeojson);
 
-            // ease to the extent of the new features
-            var bbox = geo.addCosmeticPadding(turf.bbox(selectedFeaturesGeojson));
-            geo.map.fitBounds(bbox);
+            // if there's only one climb filtered, open the info box automatically
+            if (selectedFeaturesGeojson.features.length == 1) {
+                var lat = selectedFeaturesGeojson.features[0].geometry.coordinates[1];
+                var lon = selectedFeaturesGeojson.features[0].geometry.coordinates[0];
+                var id = selectedFeaturesGeojson.features[0].properties.ID;
+                geo.zoomSingleClimb(lat, lon, id);
+            } else { // ease to the extent of all the new features
+                var bbox = geo.addCosmeticPadding(turf.bbox(selectedFeaturesGeojson));
+                geo.map.fitBounds(bbox);
+            }
 
             //update list of climbs
             $('#climbs-table').empty();

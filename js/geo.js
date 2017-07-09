@@ -135,12 +135,15 @@ var geo = {
         return bbox;
     },
     zoomSingleClimb: function(lat, lon, id) {
-        if (geo.popup) {
-            geo.popup.remove();
-        }
+        geo.clearPopup();
         geo.map.easeTo({ center: [lon, lat], zoom: 15.5 });
         geo.map.once('moveend', function() {
             geo._makePopup(null, geo.map.querySourceFeatures('climbs', { filter: ["==", 'ID', id] }));
         });
+    },
+    clearPopup: function() {
+        if (geo.popup) {
+            geo.popup.remove();
+        }
     }
 };
