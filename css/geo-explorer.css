@@ -171,7 +171,22 @@ body.application > .container-fluid,
     overflow: scroll;
 }
 
-#climbs-table>tr,
+#climbs-table {
+    width: 100%;
+}
+
+#climbs-table>tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+#climbs-table>tr>td:first-child {
+    padding-left: 3px;
+}
+
+#climbs-table>tr>td:last-child {
+    padding-right: 3px;
+}
+
 #count-number-display {
     cursor: pointer;
 }

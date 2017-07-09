@@ -211,7 +211,7 @@ function geojsonToTable(geojson) {
     var tableHtmlString = '';
     geojson.features.forEach(function(feature) {
         var onClick = 'geo.zoomSingleClimb(' + feature.geometry.coordinates[1] + ', ' + feature.geometry.coordinates[0] + ', \'' + feature.properties.ID + '\')';
-        tableHtmlString += '<tr onClick="' + onClick + '""><td>' + feature.properties.Name + '</td><td>' + feature.properties.Difficulty + '</td></tr>';
+        tableHtmlString += '<tr><td><a href="javascript:void(0)" onClick="' + onClick + '">' + feature.properties.Name + '</a></td><td>' + feature.properties.Difficulty + '</td></tr>';
     });
     return tableHtmlString;
 }
