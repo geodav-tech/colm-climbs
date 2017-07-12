@@ -115,13 +115,21 @@ var geo = {
     },
     addEventListeners: function() {
         geo.map.on('click', function(e) {
+            // if there's a single climb visible there, open its popup
             geo._makePopup(e.point);
+
+            // zoom in a bit if a cluster is clicked
+            cluster = geo.map.queryRenderedFeatures(e.point, { layers: ['cluster-0', 'cluster-1', 'cluster-2'] });
+            if (cluster.length) {
+                var center = cluster[0].geometry.coordinates;
+                geo.map.easeTo({ center: center, zoom: geo.map.getZoom() * 1.16 });
+            }
         });
 
         // Use the same approach as above to indicate that the symbols are clickable
         // by changing the cursor style to 'pointer'.
         geo.map.on('mousemove', function(e) {
-            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['unclustered-climbs'] });
+            var features = geo.map.queryRenderedFeatures(e.point, { layers: ['unclustered-climbs', 'cluster-0', 'cluster-1', 'cluster-2'] });
             geo.map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
         });
     },
